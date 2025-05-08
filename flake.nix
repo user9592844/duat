@@ -24,7 +24,7 @@
       # NOTE: Only the currently requested hostname will be built
       nixosConfigurations = forEachHost (host:
         lib.nixosSystem {
-          specialArgs = { inherit inputs lib disko sops home-manager; };
+          specialArgs = { inherit inputs lib disko sops home-manager duat-secrets; };
           modules = [ ./hosts/hosts/${host} ];
         });
     };

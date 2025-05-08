@@ -6,7 +6,7 @@ let
   userAbsolutePaths = map lib.custom.relativeToRoot userRelativePaths;
 
   # Add all desired optional system modules here
-  optionalModules = [];
+  optionalModules = [ ];
 in
 {
   # Define all the users for this host

@@ -8,7 +8,7 @@ in
 {
   options.userList = lib.genAttrs hostNames (host: lib.mkOption {
     type = lib.types.listOf lib.types.str;
-    default = [];
+    default = [ ];
     description = "List of users for ${host}";
   });
 
