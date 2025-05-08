@@ -1,0 +1,95 @@
+{ lib, ... }:
+let
+  users = [ "imhotep" ];
+
+  moduleList = lib.flatten [
+    # Core Modules (DO NOTE REMOVE)
+    "hosts/common/core"
+
+    # Optional Modules
+
+    # Create Users
+    (map (user: "hosts/common/users/${user}") users)
+  ];
+in
+{
+  # Define all the users for this host
+  userList.anubis = users;
+
+  imports = lib.flatten [
+    ./hardware-configuration.nix
+    (map lib.custom.relativeToRoot moduleList)
+  ];
+
+  boot = {
+    loader = {
+      systemd-boot = {
+        enable = true;
+        editor = false;
+      };
+      efi.canTouchEfiVariables = true;
+    };
+    initrd.systemd.enable = true;
+  };
+
+  networking = {
+    hostName = "anubis";
+    wireless.enable = lib.mkForce false;
+    interfaces.eth0.useDHCP = false;
+
+    # Public services VLAN (exposed to tailnet)
+    vlans.duaj = {
+      interface = "eth0";
+      id = 40;
+    };
+
+    # Administration VLAN
+    vlans.sefe = {
+      interface = "eth0";
+      id = 50;
+    };
+
+    nftables = {
+      enable = true;
+
+      ruleset = ''
+        table inet filter {
+          chain input {
+            type filter hook input priority 0;
+            policy drop;
+
+            iif lo accept
+            ct state established, related accept
+
+            # Allow SSH only from VLAN10
+            iifname "eth0.40" tcp dport 22 accept
+          }
+
+          chain forward {
+            type filter hook forward priority 0;
+            policy drop;
+
+            iifname "eth0.50" oifname "tailscale0" accept
+            iifname "tailscale0" oifname "eth0.50" accept
+
+            ct state established,related accept
+          }
+
+          chain output {
+            type filter hook output priority 0;
+            policy accept;
+          }
+        }
+
+        table ip nat {
+          chain postrouting {
+            type nat hook postrouting priority 100;
+            oifname "tailscale0" ip saddr 10.1.50.0/24
+          }
+        }
+      '';
+    };
+  };
+
+  system.stateVersion = "24.11";
+}
