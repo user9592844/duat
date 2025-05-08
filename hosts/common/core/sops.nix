@@ -1,6 +1,6 @@
-{ inputs, config, lib, ... }:
+{ config, lib, sops, duat-secrets, ... }:
 let
-  sopsDirectory = builtins.toString inputs.duat-secrets + "/sops";
+  sopsDirectory = builtins.toString duat-secrets + "/sops";
 
   sopsSecretsList = map
     (user: {
@@ -26,7 +26,7 @@ let
     config.userList.${config.networking.hostName};
 in
 {
-  imports = [ inputs.sops.nixosModules.sops ];
+  imports = [ sops.nixosModules.sops ];
 
   sops = {
     defaultSopsFile = "${sopsDirectory}/${config.networking.hostName}";

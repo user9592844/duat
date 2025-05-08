@@ -1,9 +1,9 @@
-{ inputs, lib, ... }:
+{ lib, home-manager, sops, ... }:
 
 {
   imports = lib.flatten [
-    inputs.home-manager.nixosModules.home-manager
-    inputs.sops.nixosModules.sops
+    home-manager.nixosModules.home-manager
+    sops.nixosModules.sops
     (lib.custom.scanPaths ./.)
     (lib.custom.relativeToRoot "modules")
   ];

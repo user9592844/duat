@@ -1,10 +1,7 @@
-{ inputs, pkgs, lib, config, ... }:
+{ pkgs, lib, config, sops ? null, ... }:
 let
   ifTheyExist = groups:
     builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-
-  sopsHashedPasswordFile = lib.optionalString (lib.hasAttr "sops-nix" inputs)
-    config.sops.secrets."imhotep/password".path;
 in
 {
   users = {
@@ -13,7 +10,7 @@ in
     users.imhotep = {
       home = "/home/imhotep";
       isNormalUser = true;
-      hashedPasswordFile = lib.mkIf (sopsHashedPasswordFile != "") sopsHashedPasswordFile;
+      hashedPasswordFile = lib.mkIf (sops != null) config.sops.secrets."passwords/imhotep".path;
       hashedPassword = "$y$j9T$7YfXBuolEsCTZP.myXOMT/$T5lK.oS1CAwRQhQGKqmJaEtp2y9h2XtMxnMijm4pRw3";
 
       extraGroups = [
