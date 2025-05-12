@@ -1,16 +1,16 @@
 { lib, ... }:
 let
+  # Add all desired user accounts
   users = [ "imhotep" ];
 
-  moduleList = lib.flatten [
-    # Core Modules (DO NOTE REMOVE)
-    "hosts/common/core"
+  # Add all desired optional system modules
+  optionalModules = [ ];
 
-    # Optional Modules
-
-    # Create Users
-    (map (user: "hosts/common/users/${user}") users)
-  ];
+  # Grab the path to the user system config and home-manager config
+  userRelativePaths = map (user: "hosts/common/users/${user}") users;
+  homeRelativePaths = map (user: "home/${user}") users;
+  userAbsolutePaths = map lib.custom.relativeToRoot userRelativePaths;
+  homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
 in
 {
   # Define all the users for this host
@@ -18,7 +18,11 @@ in
 
   imports = lib.flatten [
     ./hardware-configuration.nix
-    (map lib.custom.relativeToRoot moduleList)
+    (lib.custom.relativeToRoot "hosts/common/disks/zfs-impermanence.nix")
+    (lib.custom.relativeToRoot "hosts/common/core")
+    userAbsolutePaths
+    homeAbsolutePaths
+    (map lib.custom.relativeToRoot optionalModules)
   ];
 
   boot = {
@@ -90,6 +94,18 @@ in
       '';
     };
   };
+
+  security = {
+    auditd.enable = true;
+    audit = {
+      enable = true;
+      rules = [ "-a exit,always -F arch=b64 -S execve" ];
+    };
+    sudo.execWheelOnly = true;
+  };
+
+  # Remove all default packages, and only install those in this config
+  environment.defaultPackages = lib.mkForce [ ];
 
   system.stateVersion = "24.11";
 }

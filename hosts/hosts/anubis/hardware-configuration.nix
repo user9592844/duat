@@ -15,46 +15,6 @@
   # Enable BTRFS support
   boot.supportedFilesystems = [ "btrfs" ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e3422aec-b571-4761-b0ae-94660811b940";
-    fsType = "btrfs";
-    options = [ "subvol=root" "compress=zstd" "noatime" ];
-  };
-
-  boot.initrd.luks.devices."nixos".device =
-    "/dev/disk/by-uuid/d5884eed-c246-4700-b63a-969b24f895b7";
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/e3422aec-b571-4761-b0ae-94660811b940";
-    fsType = "btrfs";
-    options = [ "subvol=home" "compress=zstd" "noatime" ];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/e3422aec-b571-4761-b0ae-94660811b940";
-    fsType = "btrfs";
-    options = [ "subvol=nix" "compress=zstd" "noatime" ];
-  };
-
-  fileSystems."/persist" = {
-    device = "/dev/disk/by-uuid/e3422aec-b571-4761-b0ae-94660811b940";
-    fsType = "btrfs";
-    options = [ "subvol=persist" "compress=zstd" "noatime" ];
-  };
-
-  fileSystems."/var/log" = {
-    device = "/dev/disk/by-uuid/e3422aec-b571-4761-b0ae-94660811b940";
-    fsType = "btrfs";
-    options = [ "subvol=log" "compress=zstd" "noatime" ];
-    neededForBoot = true;
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/8772-7402";
-    fsType = "vfat";
-    options = [ "fmask=0022" "dmask=0022" ];
-  };
-
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
