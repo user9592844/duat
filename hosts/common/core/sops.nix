@@ -4,7 +4,8 @@ let
 
   sopsSecretsList = map
     (user: {
-      "keys/age/${user}" = {
+      # Allow user-specific secrets to be decoded by these keys
+      "keys/age/${config.networking.hostName}/${user}" = {
         owner = user;
         inherit (config.users.users.${user}) group;
         path = "/home/${user}/.config/sops/age/keys.txt";

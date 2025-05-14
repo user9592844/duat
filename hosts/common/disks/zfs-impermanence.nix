@@ -5,6 +5,7 @@
 #  disko.devices.disk.main.device = "/dev/sda";
 # }
 {
+  networking.hostId = "deadbeef";
   disko.devices = {
     disk = {
       main = {
