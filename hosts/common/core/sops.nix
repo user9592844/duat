@@ -1,6 +1,6 @@
 { config, lib, sops, duat-secrets, ... }:
 let
-  sopsDirectory = builtins.toString duat-secrets + "/sops";
+  sopsDirectory = builtins.toString duat-secrets;
 
   sopsSecretsList = map
     (user: {
@@ -30,7 +30,7 @@ in
   imports = [ sops.nixosModules.sops ];
 
   sops = {
-    defaultSopsFile = "${sopsDirectory}/${config.networking.hostName}";
+    defaultSopsFile = "${sopsDirectory}/secrets.yaml";
     validateSopsFiles = false;
 
     # The host SSH key is used for decryption of the system secrets
@@ -44,5 +44,6 @@ in
   };
 
   # Ensure the keys are owned by the user and set the user's groups
-  system.activationScripts.sopsSetAgeKeyOwnership = builtins.concatStringsSep "" setAgeKeyOwnershipList;
+  system.activationScripts.sopsSetAgeKeyOwnership =
+    builtins.concatStringsSep "" setAgeKeyOwnershipList;
 }
