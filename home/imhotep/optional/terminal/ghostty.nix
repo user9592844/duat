@@ -11,12 +11,10 @@
       font-size = 13;
       font-feature = "-liga";
 
-      keybind = [
-        "global:ctrl+grave_accent=toggle_quick_terminal"
-      ];
+      keybind = [ "global:ctrl+grave_accent=toggle_quick_terminal" ];
 
       clipboard-paste-protection = true;
-      clipboard-trim-tailing-spaces = true;
+      # clipboard-trim-tailing-spaces = true;
       copy-on-select = true;
       link-url = true;
       shell-integration-features = true;

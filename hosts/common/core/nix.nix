@@ -5,8 +5,8 @@
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
-      allowed-users = [ "root" ];
-      trusted-users = [ "root" ];
+      #  allowed-users = [ "root" ];
+      #  trusted-users = [ "root" ];
     };
 
     gc = {
@@ -15,20 +15,20 @@
       options = "--delete-older-than 14d";
     };
 
-    # Disable user profiles (nix-env installations)
-    nixPath = lib.mkForce [ ];
+    # # Disable user profiles (nix-env installations)
+    # nixPath = lib.mkForce [ ];
 
-    # Disable nix-channel for all users
-    channel.enable = false;
+    # # Disable nix-channel for all users
+    # channel.enable = false;
 
   };
 
   # Disable Nix command for non-root users
-  security.sudo.extraRules = [{
-    users = [ "ALL" ];
-    commands = [{
-      command = "${config.nix.package}/bin/nix-*";
-      options = [ "NOPASSWD" "NOEXEC" ];
-    }];
-  }];
+  #security.sudo.extraRules = [{
+  #  users = [ "ALL" ];
+  #  commands = [{
+  #    command = "${config.nix.package}/bin/nix-*";
+  #    options = [ "NOPASSWD" "NOEXEC" ];
+  #  }];
+  #}];
 }

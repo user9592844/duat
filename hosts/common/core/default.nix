@@ -10,4 +10,6 @@
     (lib.custom.scanPaths ./.)
     (lib.custom.relativeToRoot "modules")
   ];
+
+  home-manager.backupFileExtension = "backup";
 }
