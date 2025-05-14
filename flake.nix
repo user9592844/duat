@@ -16,15 +16,24 @@
     };
   };
 
-  outputs = { self, nixpkgs, disko, impermanence, home-manager, sops
-    , duat-secrets, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , disko
+    , impermanence
+    , home-manager
+    , sops
+    , duat-secrets
+    , ...
+    }@inputs:
     let
       # Allow custom library to be under lib
       lib = nixpkgs.lib.extend
         (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
       forEachHost =
         lib.genAttrs (builtins.attrNames (builtins.readDir ./hosts/hosts));
-    in {
+    in
+    {
       # For each host in ./hosts/hosts create a nixosConfiguration
       # NOTE: Only the currently requested hostname will be built
       nixosConfigurations = forEachHost (host:

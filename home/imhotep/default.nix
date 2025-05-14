@@ -10,8 +10,10 @@ in
       (lib.optional isHostnameFile (lib.custom.relativeToRoot "home/imhotep/${config.networking.hostName}.nix"))
     ];
 
-    home.username = "imhotep";
-    home.homeDirectory = "/home/imhotep";
-    home.stateVersion = "24.11";
+    home = {
+      username = "imhotep";
+      homeDirectory = "/home/imhotep";
+      stateVersion = "24.11";
+    };
   };
 }
