@@ -6,6 +6,8 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
+  fileSystems."/persist".neededForBoot = true;
+
   boot.initrd.postResumeCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
     mount /dev/mapper/cryptroot /btrfs_tmp

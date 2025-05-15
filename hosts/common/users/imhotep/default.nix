@@ -2,8 +2,7 @@
 let
   ifTheyExist = groups:
     builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in
-{
+in {
   users = {
     mutableUsers = false;
 
@@ -27,6 +26,32 @@ in
       ];
 
       shell = pkgs.fish;
+    };
+  };
+
+  environment.persistence."/persist" = {
+    users.imhotep = {
+      directories = [
+        "Configurations"
+        "Desktop"
+        "Documents"
+        "Downloads"
+        "Music"
+        "Pictures"
+        "Public"
+        "Templates"
+        "Videos"
+        "Workspace"
+        ".local/share/direnv"
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
+        {
+          directory = ".local/share/keyring";
+          mode = "0700";
+        }
+      ];
     };
   };
 
