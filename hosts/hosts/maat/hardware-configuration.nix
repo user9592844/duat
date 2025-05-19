@@ -6,15 +6,38 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  fileSystems."/persist".neededForBoot = true;
+  boot.initrd.systemd = {
+    enable = true;
+    services.rollback = {
+      description = "Rollback BTRFS root subvolume to a pristine state";
+      wantedBy = [ "initrd.target" ];
 
-  boot.initrd.postResumeCommands = lib.mkAfter ''
-    mkdir /btrfs_tmp
-    mount /dev/mapper/cryptroot /btrfs_tmp
-    btrfs subvolume delete /btrfs_tmp/root
-    btrfs subvolume create /btrfs_tmp/root
-    umount /btrfs_tmp
-  '';
+      after = [ "systemd-cryptsetup@enc.service" ];
+
+      before = [ "sysroot.mount" ];
+
+      unitConfig.DefaultDependencies = "no";
+      serviceConfig.Type = "oneshot";
+      script = ''
+        mkdir -p /mnt/root-blank
+
+        mount -t btrfs -o subvol=@root /dev/mapper/cryptroot /mnt
+        echo "mounted root partition"
+
+        btrfs subvolume list -o /mnt/root |
+          cut -f9 -d' ' |
+          while read subvolume; do
+            echo "deleting /$subvolume subvolume..."
+            btrfs subvolume delete "/mnt/$subvolume"
+          done &&
+          echo "deleting /root subvolume..." &&
+          btrfs subvolume delete /mnt/root
+          btrfs subvolume snapshot /mnt/root-blank /mnt
+          umount /mnt
+      '';
+    };
+  };
+
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
