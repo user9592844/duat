@@ -6,10 +6,10 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.postResumeCommands = lib.mkAfter ''
+  boot.initrd.postDeviceCommands = lib.mkBefore ''
     mkdir -p /mnt/root-blank
 
-    mount -t btrfs -o subvol=@root /dev/mapper/cryptroot /mnt
+    mount -t btrfs -o subvol=@root /dev/mapper/cryproot /mnt
     echo "mounted root partition"
 
     btrfs subvolume list -o /mnt/root |
