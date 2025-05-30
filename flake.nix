@@ -29,6 +29,9 @@
     , ...
     }@inputs:
     let
+      supportedSystems =
+        [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
+      forEachSupportedSystem = lib.genAttrs supportedSystems;
       # Allow custom library to be under lib
       lib = nixpkgs.lib.extend
         (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
@@ -45,6 +48,14 @@
               impermanence duat-secrets;
           };
           modules = [ ./hosts/hosts/${host} ];
+        });
+
+      devShells = forEachSupportedSystem (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in {
+          default = pkgs.mkShell {
+            packages = with pkgs; [ deadnix nixpkgs-fmt nil nixd statix ];
+          };
         });
     };
 }
