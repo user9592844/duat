@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOs/nixos-hardware";
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
     home-manager.url = "github:nix-community/home-manager";
@@ -19,6 +20,7 @@
   outputs =
     { self
     , nixpkgs
+    , nixos-hardware
     , disko
     , impermanence
     , home-manager
@@ -39,8 +41,8 @@
       nixosConfigurations = forEachHost (host:
         lib.nixosSystem {
           specialArgs = {
-            inherit inputs lib disko sops home-manager impermanence
-              duat-secrets;
+            inherit inputs lib nixos-hardware disko sops home-manager
+              impermanence duat-secrets;
           };
           modules = [ ./hosts/hosts/${host} ];
         });
