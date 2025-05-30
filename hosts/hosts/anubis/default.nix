@@ -11,7 +11,8 @@ let
   homeRelativePaths = map (user: "home/${user}") users;
   userAbsolutePaths = map lib.custom.relativeToRoot userRelativePaths;
   homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
-in {
+in
+{
   # Define all the users for this host
   userList.anubis = users;
 
