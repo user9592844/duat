@@ -6,13 +6,6 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.postResumeCommands = lib.mkAfter ''
-    mkdir /btrfs_tmp
-    mount /dev/mapper/cryptroot /btrfs_tmp
-    btrfs subvolume delete /btrfs_tmp/root
-    btrfs subvolume create /btrfs_tmp/root
-    umount /btrfs_tmp
-  '';
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
