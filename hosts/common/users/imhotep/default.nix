@@ -30,6 +30,32 @@ in
     };
   };
 
+  environment.persistence."/persist" = {
+    users.imhotep = {
+      directories = [
+        "Configurations"
+        "Desktop"
+        "Documents"
+        "Downloads"
+        "Music"
+        "Pictures"
+        "Public"
+        "Templates"
+        "Videos"
+        "Workspace"
+        ".local/share/direnv"
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
+        {
+          directory = ".local/share/keyring";
+          mode = "0700";
+        }
+      ];
+    };
+  };
+
   # Ensure Git and Fish are always available for this user
   programs.fish.enable = true;
   programs.git.enable = true;
