@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ nixos-hardware, lib, ... }:
 let
   # Add all desired user accounts here
   users = [ "imhotep" ];
@@ -17,9 +17,6 @@ let
   homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
 in
 {
-  # Define all the users for this host
-  userList.maat = users;
-
   imports = lib.flatten [
     ./hardware-configuration.nix
     (lib.custom.relativeToRoot "hosts/common/disks/luks-btrfs-impermanence.nix")
@@ -27,6 +24,7 @@ in
     userAbsolutePaths
     homeAbsolutePaths
     (map lib.custom.relativeToRoot optionalModules)
+    nixos-hardware.nixosModules.lenovo-thinkpad-t480s
   ];
 
   boot = {
@@ -53,6 +51,9 @@ in
     };
     sudo.execWheelOnly = true;
   };
+
+  # Define all the users for this host
+  userList.maat = users;
 
   # Remove all default packages, and only install those in this config
   environment.defaultPackages = lib.mkForce [ ];
