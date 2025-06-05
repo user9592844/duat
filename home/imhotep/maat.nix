@@ -1,9 +1,9 @@
 { lib, ... }: {
   imports = map lib.custom.relativeToRoot [
+    "home/imhotep/optional/browsers/firefox.nix"
+
     "home/imhotep/optional/dev/zed-editor.nix"
 
-    "home/imhotep/optional/terminal/direnv.nix"
     "home/imhotep/optional/terminal/ghostty.nix"
-    "home/imhotep/optional/terminal/zellij.nix"
   ];
 }
