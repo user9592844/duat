@@ -54,7 +54,7 @@
         let pkgs = nixpkgs.legacyPackages.${system};
         in {
           default = pkgs.mkShell {
-            packages = with pkgs; [ deadnix nixpkgs-fmt nil nixd statix ];
+            packages = with pkgs; [ deadnix nixpkgs-fmt nil statix ];
           };
         });
     };
