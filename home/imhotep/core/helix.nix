@@ -19,6 +19,12 @@
 
         file-picker.hidden = false;
 
+        cursor-shape = {
+          normal = "block";
+          insert = "bar";
+          select = "underline";
+        };
+
         statusline = {
           left = [
             "mode"
@@ -61,7 +67,7 @@
     languages.language = [{
       name = "nix";
       auto-format = true;
-      formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+      formatter.command = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
     }];
   };
 }
