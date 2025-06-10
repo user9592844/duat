@@ -12,7 +12,7 @@ let
       };
       "passwords/${user}".neededForUsers = true;
     })
-    config.userList.${config.networking.hostName};
+    config.duat.${config.networking.hostName}.users;
 
   setAgeKeyOwnershipList = map
     (username:
@@ -24,7 +24,7 @@ let
         mkdir -p ${ageFolder} || true
         chown -R ${username}:${group} /home/${username}/.config
       '')
-    config.userList.${config.networking.hostName};
+    config.duat.${config.networking.hostName}.users;
 in
 {
   imports = [ sops.nixosModules.sops ];

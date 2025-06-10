@@ -28,6 +28,8 @@ in
     nixos-hardware.nixosModules.lenovo-thinkpad-t480s
   ];
 
+  duat.maat.users = users;
+
   boot = {
     loader = {
       systemd-boot = {
@@ -52,9 +54,6 @@ in
     };
     sudo.execWheelOnly = true;
   };
-
-  # Define all the users for this host
-  userList.maat = users;
 
   # Remove all default packages, and only install those in this config
   environment.defaultPackages = lib.mkForce [ ];

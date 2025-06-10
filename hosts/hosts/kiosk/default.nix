@@ -26,6 +26,9 @@ in
     (map lib.custom.relativeToRoot optionalModules)
   ];
 
+  duat.kiosk.users = users;
+  users.allowNoPasswordLogin = true;
+
   boot = {
     loader = {
       systemd-boot = {
@@ -52,6 +55,7 @@ in
       enable = true;
       allowedTCPPorts = [ 22 ];
     };
+    wireless.enable = false;
   };
 
   security = {
@@ -62,9 +66,6 @@ in
     };
     sudo.execWheelOnly = true;
   };
-
-  # Define all the users for this host
-  userList.kiosk = users;
 
   # Remove all default packages, and only install those in this config
   environment.defaultPackages = lib.mkForce [ ];
