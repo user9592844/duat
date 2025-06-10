@@ -1,30 +1,46 @@
-{ config, pkgs, lib, ... }:
-let
-  yazi-plugins = pkgs.fetchFromGitHub {
-    owner = "yazi-rs";
-    repo = "plugins";
-    rev = "main";
-    sha256 = "sha256-ZCLJ6BjMAj64/zM606qxnmzl2la4dvO/F5QFicBEYfU=";
-  };
-in
-{
+{ config, pkgs, lib, ... }: {
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
 
     settings = {
       mgr = {
-        show-hidden = true;
+        show_hidden = true;
         ratio = [ 1 4 3 ];
+      };
+      plugin = {
+        prepend_fetchers = [
+          {
+            id = "git";
+            name = "*";
+            run = "git";
+          }
+          {
+            id = "git";
+            name = "*/";
+            run = "git";
+          }
+        ];
       };
     };
 
+    keymap = {
+      manager.prepend_keymap = [
+        {
+          on = [ "g" "i" ];
+          run = "plugin lazygit";
+          desc = "run lazygit";
+        }
+      ];
+    };
+
     plugins = {
-      git = "${yazi-plugins}/git.yazi";
+      inherit (pkgs.yaziPlugins) git lazygit starship;
     };
 
     initLua = ''
       require("git"):setup()
+      require("starship"):setup()
     '';
   };
 
@@ -48,7 +64,7 @@ in
             pane split_direction="vertical" {
                 pane name="sidebar" {
                     command "env"
-                    args "YAZI_CONFIG_HOME=~/.config/yazelix/yazi" "yazi"
+                    args "YAZI_CONFIG_HOME=~/.config/yazi/" "yazi"
                 	size "100%"
                 }
             }
