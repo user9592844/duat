@@ -1,14 +1,13 @@
 { nixos-hardware, lib, ... }:
 let
   # Add all desired user accounts here
-  users = [ "imhotep" ];
+  users = [ "kiosk" ];
 
   # Add all desired optional system modules here
   optionalModules = [
     "hosts/common/optional/browser/firefox.nix"
-    "hosts/common/optional/desktop/cosmic-desktop.nix"
-    "hosts/common/optional/desktop/keepassxc.nix"
-    "hosts/common/optional/services/impermanence.nix"
+    "hosts/common/optional/services/firefox-cage.nix"
+    "hosts/common/optional/services/searxng.nix"
   ];
 
   # Grab the path to the user system config and home-manager config
@@ -20,15 +19,15 @@ in
 {
   imports = lib.flatten [
     ./hardware-configuration.nix
-    (lib.custom.relativeToRoot "hosts/common/disks/luks-btrfs-impermanence.nix")
+    (lib.custom.relativeToRoot "hosts/common/disks/ext4.nix")
     (lib.custom.relativeToRoot "hosts/common/core")
     userAbsolutePaths
     homeAbsolutePaths
     (map lib.custom.relativeToRoot optionalModules)
-    nixos-hardware.nixosModules.lenovo-thinkpad-t480s
   ];
 
-  duat.maat.users = users;
+  duat.kiosk.users = users;
+  users.allowNoPasswordLogin = true;
 
   boot = {
     loader = {
@@ -38,12 +37,25 @@ in
       };
       efi.canTouchEfiVariables = true;
     };
+    initrd.includeDefaultModules = false;
+  };
+
+  documentation = {
+    doc.enable = false;
+    info.enable = false;
+    man.enable = false;
+    nixos.enable = false;
   };
 
   networking = {
-    hostName = "maat";
+    # TODO (user9592844): Come up with a way to have one kiosk config that generates different kiosk hostNames with no collision
+    hostName = "kiosk";
     networkmanager.enable = true;
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 22 ];
+    };
+    wireless.enable = false;
   };
 
   security = {

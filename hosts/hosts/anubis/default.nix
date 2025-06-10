@@ -13,8 +13,6 @@ let
   homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
 in
 {
-  # Define all the users for this host
-  userList.anubis = users;
 
   imports = lib.flatten [
     ./hardware-configuration.nix
@@ -24,6 +22,8 @@ in
     homeAbsolutePaths
     (map lib.custom.relativeToRoot optionalModules)
   ];
+
+  duat.anubis.users = users;
 
   boot = {
     loader = {
