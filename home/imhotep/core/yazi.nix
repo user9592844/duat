@@ -35,9 +35,7 @@
     };
 
     plugins = {
-      git = pkgs.yaziPlugins.git;
-      lazygit = pkgs.yaziPlugins.lazygit;
-      starship = pkgs.yaziPlugins.starship;
+      inherit (pkgs.yaziPlugins) git lazygit starship;
     };
 
     initLua = ''
