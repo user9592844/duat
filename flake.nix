@@ -44,7 +44,7 @@
       nixosConfigurations = forEachHost (host:
         lib.nixosSystem {
           specialArgs = {
-            inherit inputs lib nixos-hardware disko sops home-manager
+            inherit inputs lib nixpkgs nixos-hardware disko sops home-manager
               impermanence duat-secrets;
           };
           modules = [ ./hosts/hosts/${host} ];
@@ -54,7 +54,7 @@
         let pkgs = nixpkgs.legacyPackages.${system};
         in {
           default = pkgs.mkShell {
-            packages = with pkgs; [ deadnix nixpkgs-fmt nil statix ];
+            packages = with pkgs; [ deadnix nixpkgs-fmt mdbook nil statix ];
           };
         });
     };

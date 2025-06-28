@@ -8,6 +8,7 @@ let
     "hosts/common/optional/browser/firefox.nix"
     "hosts/common/optional/desktop/cosmic-desktop.nix"
     "hosts/common/optional/desktop/keepassxc.nix"
+    "hosts/common/optional/desktop/libreoffice.nix"
     "hosts/common/optional/services/impermanence.nix"
   ];
 
