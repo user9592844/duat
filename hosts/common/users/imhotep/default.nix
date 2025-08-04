@@ -24,6 +24,8 @@ in
         "git"
         "networkmanager"
         "cdrom"
+        "plugdev"
+        "vboxusers"
       ];
 
       shell = pkgs.fish;

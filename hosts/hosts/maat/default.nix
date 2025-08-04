@@ -8,7 +8,13 @@ let
     "hosts/common/optional/browser/firefox.nix"
     "hosts/common/optional/desktop/cosmic-desktop.nix"
     "hosts/common/optional/desktop/keepassxc.nix"
+    "hosts/common/optional/desktop/ledger-live-desktop.nix"
     "hosts/common/optional/desktop/libreoffice.nix"
+    "hosts/common/optional/desktop/protonmail-desktop.nix"
+    "hosts/common/optional/desktop/proton-pass.nix"
+    "hosts/common/optional/desktop/protonvpn-gui.nix"
+    "hosts/common/optional/desktop/stremio.nix"
+    "hosts/common/optional/desktop/virtualbox.nix"
     "hosts/common/optional/services/impermanence.nix"
   ];
 
