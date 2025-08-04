@@ -1,21 +1,16 @@
 { nixos-hardware, lib, ... }:
 let
   # Add all desired user accounts here
-  users = [ "imhotep" ];
+  users = [ "imhotep" "merneith" ];
 
   # Add all desired optional system modules here
   optionalModules = [
     "hosts/common/optional/browser/firefox.nix"
     "hosts/common/optional/desktop/cosmic-desktop.nix"
-    "hosts/common/optional/desktop/keepassxc.nix"
-    "hosts/common/optional/desktop/ledger-live-desktop.nix"
     "hosts/common/optional/desktop/libreoffice.nix"
-    "hosts/common/optional/desktop/protonmail-desktop.nix"
     "hosts/common/optional/desktop/proton-pass.nix"
+    "hosts/common/optional/desktop/protonmail-desktop.nix"
     "hosts/common/optional/desktop/protonvpn-gui.nix"
-    "hosts/common/optional/desktop/stremio.nix"
-    "hosts/common/optional/desktop/virtualbox.nix"
-    "hosts/common/optional/services/impermanence.nix"
   ];
 
   # Grab the path to the user system config and home-manager config
@@ -25,17 +20,17 @@ let
   homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
 in
 {
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   imports = lib.flatten [
-    ./hardware-configuration.nix
-    (lib.custom.relativeToRoot "hosts/common/disks/luks-btrfs-impermanence.nix")
+    # ./hardware-configuration.nix
+    (lib.custom.relativeToRoot "hosts/common/disks/ext4.nix")
     (lib.custom.relativeToRoot "hosts/common/core")
     userAbsolutePaths
     homeAbsolutePaths
     (map lib.custom.relativeToRoot optionalModules)
-    nixos-hardware.nixosModules.lenovo-thinkpad-t480s
   ];
 
-  duat.maat.users = users;
+  duat.bastet.users = users;
 
   boot = {
     loader = {
@@ -48,7 +43,7 @@ in
   };
 
   networking = {
-    hostName = "maat";
+    hostName = "bastet";
     networkmanager.enable = true;
     firewall.enable = true;
   };

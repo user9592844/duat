@@ -8,3 +8,9 @@ format-drive DISKO_FILE:
 
 mount-drive DISKO_FILE:
     sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode mount {{DISKO_FILE}}
+
+clean-store:
+    @echo "Running Nix store cleanup..."
+    sudo nix profile wipe-history --older-than 14d
+    sudo nix store gc
+    sudo nix store optimise
