@@ -45,6 +45,8 @@ in
     nixos.enable = false;
   };
 
+  services.openssh.enable = true;
+
   networking = {
     # TODO (user9592844): Come up with a way to have one kiosk config that generates different kiosk hostNames with no collision
     hostName = "kiosk";
