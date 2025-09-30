@@ -47,15 +47,18 @@
             inherit inputs lib nixpkgs nixos-hardware disko sops home-manager
               impermanence duat-secrets;
           };
-          modules = [ ./hosts/hosts/${host} ];
+          modules = [
+            ./hosts/hosts/${host}
+          ];
         });
 
-      devShells = forEachSupportedSystem (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in {
-          default = pkgs.mkShell {
-            packages = with pkgs; [ deadnix nixpkgs-fmt mdbook nil statix just ];
-          };
-        });
+      devShells = forEachSupportedSystem
+        (system:
+          let pkgs = nixpkgs.legacyPackages.${system};
+          in {
+            default = pkgs.mkShell {
+              packages = with pkgs; [ deadnix nixpkgs-fmt mdbook nil statix just ];
+            };
+          });
     };
 }

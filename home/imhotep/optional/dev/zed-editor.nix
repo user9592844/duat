@@ -3,7 +3,7 @@
     enable = true;
 
     extensions =
-      [ "nix" "toml" "make" "html" "terraform" "latex" "zig" "fish" ];
+      [ "nix" "toml" "make" "html" "terraform" "latex" "zig" "fish" "justfile" ];
 
     userSettings = {
       auto_update = false;

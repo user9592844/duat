@@ -7,7 +7,6 @@ let
   optionalModules = [
     "hosts/common/optional/browser/firefox.nix"
     "hosts/common/optional/services/firefox-cage.nix"
-    "hosts/common/optional/services/searxng.nix"
   ];
 
   # Grab the path to the user system config and home-manager config
@@ -19,7 +18,6 @@ in
 {
   imports = lib.flatten [
     ./hardware-configuration.nix
-    (lib.custom.relativeToRoot "hosts/common/disks/ext4.nix")
     (lib.custom.relativeToRoot "hosts/common/core")
     userAbsolutePaths
     homeAbsolutePaths

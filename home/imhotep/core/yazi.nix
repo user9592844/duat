@@ -79,6 +79,10 @@
                  plugin location="zellij:status-bar"
               }
           }
+
+          floating_panes {
+            pane {}
+          }
       }
     '';
 

@@ -1,5 +1,4 @@
 { lib, home-manager, sops, disko, impermanence, ... }:
-
 {
   imports = lib.flatten [
     home-manager.nixosModules.home-manager

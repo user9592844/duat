@@ -1,7 +1,13 @@
-drvs HOSTNAME:
+update-flake:
+    nix flake update
+
+print-drvs HOSTNAME:
     nix derivation show --recursive $(nix build --print-out-paths .#nixosConfigurations.{{HOSTNAME}}.config.system.build.toplevel) > drvs.txt
     chmod 600 drvs.txt
     rm -rf result
+
+rebuild HOSTNAME:
+    sudo nixos-rebuild switch --flake .#{{HOSTNAME}}
 
 format-drive DISKO_FILE:
     sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount {{DISKO_FILE}}
