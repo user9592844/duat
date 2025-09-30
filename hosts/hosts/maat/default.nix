@@ -6,6 +6,7 @@ let
   # Add all desired optional system modules here
   optionalModules = [
     "hosts/common/optional/browser/firefox.nix"
+    "hosts/common/optional/desktop/bitwarden-desktop.nix"
     "hosts/common/optional/desktop/cosmic-desktop.nix"
     "hosts/common/optional/desktop/keepassxc.nix"
     "hosts/common/optional/desktop/ledger-live-desktop.nix"
@@ -13,9 +14,9 @@ let
     "hosts/common/optional/desktop/protonmail-desktop.nix"
     "hosts/common/optional/desktop/proton-pass.nix"
     "hosts/common/optional/desktop/protonvpn-gui.nix"
-    "hosts/common/optional/desktop/stremio.nix"
     "hosts/common/optional/desktop/virtualbox.nix"
     "hosts/common/optional/services/impermanence.nix"
+    "hosts/common/optional/services/tailscale.nix"
   ];
 
   # Grab the path to the user system config and home-manager config

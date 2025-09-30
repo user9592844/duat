@@ -14,7 +14,7 @@ in
       hashedPassword =
         "$y$j9T$QAfKIVbN/1TB2CkvS0MfB1$N76UOkIFz4BLmqRwcJvNKnn5PqMV/dvHxOCLccKdvv.";
 
-      extraGroups = [ ] ++ ifTheyExist [
+      extraGroups = ifTheyExist [
         "audio"
         "video"
       ];
