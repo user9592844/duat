@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, nixos-hardware, ... }:
 let
   # Add all desired user accounts here
   users = [ "imhotep" "kiosk" ];
@@ -18,6 +18,7 @@ in
     ./hardware-configuration.nix
     (lib.custom.relativeToRoot "hosts/common/core")
     userAbsolutePaths
+    nixos-hardware.nixosModules.raspberry-pi-4
     (map lib.custom.relativeToRoot optionalModules)
   ];
 
