@@ -1,7 +1,7 @@
 { lib, ... }:
 let
   # Add all desired user accounts here
-  users = [ "kiosk" ];
+  users = [ "imhotep" "kiosk" ];
 
   # Add all desired optional system modules here
   optionalModules = [
@@ -24,15 +24,9 @@ in
   duat.kiosk.users = users;
   users.allowNoPasswordLogin = true;
 
-  boot = {
-    loader = {
-      systemd-boot = {
-        enable = true;
-        editor = false;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-    initrd.includeDefaultModules = false;
+  boot.loader = {
+    grub.enable = false;
+    generic-extlinux-compatible.enable = true;
   };
 
   documentation = {
