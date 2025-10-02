@@ -23,31 +23,32 @@ in
     };
   };
 
-  # environment.persistence."/persist" = lib.mkIf (config.environment.persistence."/persist".enable) {
-  #   users.merneith = {
-  #     directories = [
-  #       "Configurations"
-  #       "Desktop"
-  #       "Documents"
-  #       "Downloads"
-  #       "Music"
-  #       "Pictures"
-  #       "Public"
-  #       "Templates"
-  #       "Videos"
-  #       "Workspace"
-  #       ".local/share/direnv"
-  #       {
-  #         directory = ".ssh";
-  #         mode = "0700";
-  #       }
-  #       {
-  #         directory = ".local/share/keyring";
-  #         mode = "0700";
-  #       }
-  #     ];
-  #   };
-  # };
+  # If the host has impermenance (persistence module) enabled, then utilise it
+  environment.persistence."/persist" = lib.mkIf (config.duat.${config.networking.hostName}.isImpermanenceAvailable) {
+    users.merneith = {
+      directories = [
+        "Configurations"
+        "Desktop"
+        "Documents"
+        "Downloads"
+        "Music"
+        "Pictures"
+        "Public"
+        "Templates"
+        "Videos"
+        "Workspace"
+        ".local/share/direnv"
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
+        {
+          directory = ".local/share/keyring";
+          mode = "0700";
+        }
+      ];
+    };
+  };
 
   # Ensure Git and Fish are always available for this user
   programs.fish.enable = true;
