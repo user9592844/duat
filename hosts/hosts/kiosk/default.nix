@@ -21,6 +21,7 @@ in
     (lib.custom.relativeToRoot "hosts/common/core")
     userAbsolutePaths
     homeAbsolutePaths
+    nixos-hardware.nixosModules.raspberry-pi-4
     (map lib.custom.relativeToRoot optionalModules)
   ];
 
