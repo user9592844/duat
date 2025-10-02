@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let
   ifTheyExist = groups:
     builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
@@ -30,7 +30,8 @@ in
     };
   };
 
-  environment.persistence."/persist" = {
+  # If the host has impermenance (persistence module) enabled, then utilise it
+  environment.persistence."/persist" = lib.mkIf (config.duat.${config.networking.hostName}.isImpermanenceAvailable) {
     users.imhotep = {
       directories = [
         "Configurations"
