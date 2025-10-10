@@ -42,7 +42,6 @@
       userList =
         builtins.attrNames (builtins.readDir ./home);
       forEachHost = lib.genAttrs hostList;
-      forEachUser = lib.genAttrs userList;
       forEachUserHost = lib.genAttrs (builtins.concatMap (user: map (hostname: "${user}@${hostname}") hostList) userList);
     in
     {
