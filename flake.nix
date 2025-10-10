@@ -34,13 +34,13 @@
     let
       # Allow custom library to be under lib
       lib = nixpkgs.lib.extend
-        (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; hm = home-manager.lib.hm; });
+        (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; inherit (home-manager.lib) hm; });
       forEachSupportedSystem = lib.genAttrs
         [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
       hostList =
-        (builtins.attrNames (builtins.readDir ./hosts/hosts));
+        builtins.attrNames (builtins.readDir ./hosts/hosts);
       userList =
-        (builtins.attrNames (builtins.readDir ./home));
+        builtins.attrNames (builtins.readDir ./home);
       forEachHost = lib.genAttrs hostList;
       forEachUser = lib.genAttrs userList;
       forEachUserHost = lib.genAttrs (builtins.concatMap (user: map (hostname: "${user}@${hostname}") hostList) userList);
