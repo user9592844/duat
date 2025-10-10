@@ -61,12 +61,6 @@
 
       # For each user in ./home create a homeConfiguration
       # NOTE: Only the currently requested user will be built
-      # homeConfigurations = forEachUser (user:
-      #   home-manager.lib.homeManagerConfiguration {
-      #     pkgs = nixpkgs.legacyPackages."x86_64-linux";
-      #     modules = [ ./home/${user} ];
-      #     extraSpecialArgs = { inherit inputs lib sops impermanence duat-secrets; };
-      #   });
       homeConfigurations = forEachUserHost
         (userHost:
           let

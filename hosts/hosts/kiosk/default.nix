@@ -9,18 +9,15 @@ let
     "hosts/common/optional/services/firefox-cage.nix"
   ];
 
-  # Grab the path to the user system config and home-manager config
+  # Grab the path to the user system config
   userRelativePaths = map (user: "hosts/common/users/${user}") users;
-  homeRelativePaths = map (user: "home/${user}") users;
   userAbsolutePaths = map lib.custom.relativeToRoot userRelativePaths;
-  # homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
 in
 {
   imports = lib.flatten [
     ./hardware-configuration.nix
     (lib.custom.relativeToRoot "hosts/common/core")
     userAbsolutePaths
-    # homeAbsolutePaths
     (map lib.custom.relativeToRoot optionalModules)
   ];
 
