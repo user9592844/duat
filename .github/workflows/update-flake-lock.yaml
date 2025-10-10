@@ -32,7 +32,7 @@ jobs:
       - name: Check for changes
         id: git_diff
         run: |
-          if [[ -n "(git status --porcelain flake.lock" ]]; then
+          if [[ -n "$(git status --porcelain flake.lock)" ]]; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT

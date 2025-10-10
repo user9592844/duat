@@ -1,4 +1,4 @@
-{ nixos-hardware, lib, ... }:
+{ lib, ... }:
 let
   # Add all desired user accounts here
   users = [ "kiosk" ];
