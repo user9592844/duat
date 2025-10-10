@@ -17,7 +17,7 @@ let
   userRelativePaths = map (user: "hosts/common/users/${user}") users;
   homeRelativePaths = map (user: "home/${user}") users;
   userAbsolutePaths = map lib.custom.relativeToRoot userRelativePaths;
-  homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
+  # homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
 in
 {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
@@ -26,7 +26,7 @@ in
     (lib.custom.relativeToRoot "hosts/common/disks/ext4.nix")
     (lib.custom.relativeToRoot "hosts/common/core")
     userAbsolutePaths
-    homeAbsolutePaths
+    # homeAbsolutePaths
     (map lib.custom.relativeToRoot optionalModules)
   ];
 

@@ -1,5 +1,7 @@
 { lib, ... }: {
-  imports = map lib.custom.relativeToRoot [
+  imports = [
+    ./common.nix
+  ] ++ map lib.custom.relativeToRoot [
     "home/imhotep/optional/browsers/firefox.nix"
 
     "home/imhotep/optional/dev/zed-editor.nix"

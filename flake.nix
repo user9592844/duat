@@ -6,7 +6,10 @@
     nixos-hardware.url = "github:NixOs/nixos-hardware";
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops.url = "github:mic92/sops-nix";
 
     # Private repository to hold the secrets for hosts/systems
@@ -29,14 +32,18 @@
     , ...
     }@inputs:
     let
-      supportedSystems =
-        [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
-      forEachSupportedSystem = lib.genAttrs supportedSystems;
       # Allow custom library to be under lib
       lib = nixpkgs.lib.extend
-        (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
-      forEachHost =
-        lib.genAttrs (builtins.attrNames (builtins.readDir ./hosts/hosts));
+        (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; hm = home-manager.lib.hm; });
+      forEachSupportedSystem = lib.genAttrs
+        [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
+      hostList =
+        (builtins.attrNames (builtins.readDir ./hosts/hosts));
+      userList =
+        (builtins.attrNames (builtins.readDir ./home));
+      forEachHost = lib.genAttrs hostList;
+      forEachUser = lib.genAttrs userList;
+      forEachUserHost = lib.genAttrs (builtins.concatMap (user: map (hostname: "${user}@${hostname}") hostList) userList);
     in
     {
       # For each host in ./hosts/hosts create a nixosConfiguration
@@ -44,13 +51,35 @@
       nixosConfigurations = forEachHost (host:
         lib.nixosSystem {
           specialArgs = {
-            inherit inputs lib nixpkgs nixos-hardware disko sops home-manager
+            inherit inputs lib nixpkgs nixos-hardware disko sops
               impermanence duat-secrets;
           };
           modules = [
             ./hosts/hosts/${host}
           ];
         });
+
+      # For each user in ./home create a homeConfiguration
+      # NOTE: Only the currently requested user will be built
+      # homeConfigurations = forEachUser (user:
+      #   home-manager.lib.homeManagerConfiguration {
+      #     pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      #     modules = [ ./home/${user} ];
+      #     extraSpecialArgs = { inherit inputs lib sops impermanence duat-secrets; };
+      #   });
+      homeConfigurations = forEachUserHost
+        (userHost:
+          let
+            # Hostname is element two becaues empties are interleaved in the list
+            parts = builtins.split "[@]" userHost;
+            user = builtins.elemAt parts 0;
+            host = builtins.elemAt parts 2;
+          in
+          home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages."x86_64-linux";
+            modules = [ ./home/${user}/${host}.nix ];
+            extraSpecialArgs = { inherit inputs lib sops impermanence duat-secrets; };
+          });
 
       devShells = forEachSupportedSystem
         (system:

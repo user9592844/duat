@@ -6,8 +6,11 @@ print-drvs HOSTNAME:
     chmod 600 drvs.txt
     rm -rf result
 
-rebuild HOSTNAME:
+rebuild-system HOSTNAME:
     sudo nixos-rebuild switch --flake .#{{HOSTNAME}}
+
+rebuild-home USER:
+    home-manager switch --flake .#{{USER}}
 
 format-drive DISKO_FILE:
     sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount {{DISKO_FILE}}
