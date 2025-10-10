@@ -10,7 +10,7 @@ let
   userRelativePaths = map (user: "hosts/common/users/${user}") users;
   homeRelativePaths = map (user: "home/${user}") users;
   userAbsolutePaths = map lib.custom.relativeToRoot userRelativePaths;
-  homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
+  # homeAbsolutePaths = map lib.custom.relativeToRoot homeRelativePaths;
 in
 {
 
@@ -19,7 +19,7 @@ in
     (lib.custom.relativeToRoot "hosts/common/disks/zfs-impermanence.nix")
     (lib.custom.relativeToRoot "hosts/common/core")
     userAbsolutePaths
-    homeAbsolutePaths
+    # homeAbsolutePaths
     (map lib.custom.relativeToRoot optionalModules)
   ];
 
