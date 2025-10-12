@@ -1,0 +1,3 @@
+{
+  services.cockpit.enable = true;
+}
