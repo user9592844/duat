@@ -12,7 +12,7 @@ show-outputs:
 rebuild-system HOSTNAME:
     sudo nixos-rebuild switch --flake .#{{HOSTNAME}}
 
-rebuild-home USER:
+rebuild-home:
     home-manager switch --flake .
 
 # Disko commands
