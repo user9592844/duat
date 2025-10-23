@@ -4,8 +4,6 @@
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
-      #  allowed-users = [ "root" ];
-      #  trusted-users = [ "root" ];
     };
 
     gc = {
