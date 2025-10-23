@@ -30,7 +30,7 @@ in
     };
   };
 
-  environment.persistence."/persist" = lib.mkIf (config.duat.${config.networking.hostName}.isImpermanenceAvailable) {
+  environment.persistence."/persist" = lib.mkIf config.duat.${config.networking.hostName}.isImpermanenceAvailable {
     users.imhotep = {
       directories = [
         "Configurations"
