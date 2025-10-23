@@ -1,4 +1,5 @@
-{
+{ duat, config, ... }: {
+  duat.${config.networking.hostName}.isImpermanenceAvailable = true;
   environment.persistence."/persist" = {
     enable = true;
     hideMounts = true;

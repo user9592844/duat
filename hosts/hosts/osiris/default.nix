@@ -5,6 +5,7 @@ let
 
   # Add all desired optional system modules here
   optionalModules = [
+    "hosts/common/optional/services/openssh.nix"
     "hosts/common/optional/services/tailscale.nix"
   ];
 
