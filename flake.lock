@@ -23,10 +23,10 @@
     "duat-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1761196935,
-        "narHash": "sha256-651Ps+kO6K9gFUvp0iGJ+RQcrrjpsGeuKOC7iNVeNxA=",
+        "lastModified": 1761199009,
+        "narHash": "sha256-ll5xs4SwErBFzqaU5IgHv9N1y+UZ1byPGx3Z8WyZnOY=",
         "ref": "main",
-        "rev": "d60fb4e7bcc08a338dcc03034937180cda2b5b77",
+        "rev": "11e41faa1eba921565f5d4fada01d74ef40a9eee",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/user9592844/duat-secrets"
