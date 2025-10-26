@@ -13,13 +13,13 @@
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/e15a56db-ed64-4a1e-a558-91dd9d0e6805";
+      device = "/dev/disk/by-uuid/d0761e50-4bf0-4690-a586-eb2519d28941";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/6810-AFFF";
+      device = "/dev/disk/by-uuid/804E-8B0B";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
@@ -32,6 +32,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enX0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enX1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
