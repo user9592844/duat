@@ -20,6 +20,7 @@ in
     (lib.custom.relativeToRoot "hosts/common/core")
     userAbsolutePaths
     (map lib.custom.relativeToRoot optionalModules)
+    (lib.custom.relativeToRoot "hosts/hosts/osiris/services")
   ];
 
   duat.osiris.users = users;
