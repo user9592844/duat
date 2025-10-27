@@ -8,6 +8,7 @@ let
     "hosts/common/optional/services/openssh.nix"
     "hosts/common/optional/services/tailscale.nix"
     "hosts/common/optional/services/xe-guest-utilities.nix"
+    "hosts/common/optional/terminal/dig.nix"
   ];
 
   # Grab the path to the user system config
