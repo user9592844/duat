@@ -241,6 +241,25 @@
       "toolkit.telemetry.firstShutdownPing.enabled" = false;
       "toolkit.telemetry.coverage.opt-out" = true;
       "toolkit.coverage.endpoint.base" = "";
+
+      # Disable AI/ML features
+      "browser.ml.chat.enabled" = false;
+      "browser.ml.chat.shortcuts" = false;
+      "browser.ml.chat.shortcuts.custom" = false;
+      "browser.ml.enable" = false;
+      "browser.tabs.groups.smart.enabled" = false;
+      "browser.ml.chat.menu" = false;
+      "browser.ml.chat.page" = false;
+      "browser.ml.chat.maxLength" = 0;
+      "browser.ml.chat.hideFromLabs" = true;
+      "browser.ml.chat.hideLabsShortcuts" = true;
+      "browser.ml.linkPreview.enabled" = false;
+      "browser.ml.pageAssist.enabled" = false;
+      "extensions.ml.enabled" = false;
+
+      # Miscellaneous
+      "privacy.globalprivacycontrol.enabled" = true;
+      "privacy.globalprivacycontrol.functionality.enabled" = true;
     };
   };
 }

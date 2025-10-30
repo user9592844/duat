@@ -1,6 +1,7 @@
-{
+{ pkgs, ... }: {
   programs.ssh = {
     enable = true;
+    package = pkgs.openssh_hpn;
     enableDefaultConfig = false;
 
     extraConfig = ''
