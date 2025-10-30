@@ -23,10 +23,10 @@
     "duat-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1761543114,
-        "narHash": "sha256-F2HG59sM8ITj7Lf+3AU98AmdKK9sWDJPq8nPCQfVb7U=",
+        "lastModified": 1761782993,
+        "narHash": "sha256-NDNxsBgcNLLr44EG4qvEqyQ8BynJSxcIegDmPK+7lus=",
         "ref": "main",
-        "rev": "a9eb80c3137e2b6a7dd8d023b11a03fddc3b119f",
+        "rev": "75848581d32854cfa0e7890d38493ae4c121fe46",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/user9592844/duat-secrets"
@@ -45,11 +45,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761530345,
-        "narHash": "sha256-+9+YCK9Lh6GThkXu/8JTxMFUnImIdZpb8ElUh6/F5Y8=",
+        "lastModified": 1761770832,
+        "narHash": "sha256-IQIWG6kHxnUpx5KEb9r0BROL3/R6UQ/30aO2oHncBA8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "bbaeb9f1c29e79bb1653b32c3d73244cdf4bd888",
+        "rev": "124b99dbd1594dbebdd575ac7142752ee96a98a0",
         "type": "github"
       },
       "original": {
@@ -75,11 +75,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1760958188,
-        "narHash": "sha256-2m1S4jl+GEDtlt2QqeHil8Ny456dcGSKJAM7q3j/BFU=",
+        "lastModified": 1761759700,
+        "narHash": "sha256-zuiwvKAPwtMmwf44tb7Q7Y5d7JkBeuaF89PISUnkWA8=",
         "owner": "NixOs",
         "repo": "nixos-hardware",
-        "rev": "d6645c340ef7d821602fd2cd199e8d1eed10afbc",
+        "rev": "2379bc40992ec29feb1933bb4acd224fa055f3f8",
         "type": "github"
       },
       "original": {
