@@ -39,8 +39,16 @@ in
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 53 ];
-      allowedUDPPorts = [ 53 ];
+      checkReversePath = "loose";
+      allowedTCPPorts = [ 22 53 853 ];
+      allowedUDPPorts = [ 53 853 ];
+
+      trustedInterfaces = [ "tailscale0" "enX1" ];
+
+      interfaces."tailscale0" = {
+        allowedTCPPorts = [ 22 53 853 ];
+        allowedUDPPorts = [ 53 853 ];
+      };
     };
   };
 
