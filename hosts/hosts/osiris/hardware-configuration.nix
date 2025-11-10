@@ -9,6 +9,11 @@
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
+  boot.kernelParams = [
+    "console=ttyS0,115200"
+    "console=tty1"
+  ];
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
