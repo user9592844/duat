@@ -53,7 +53,10 @@ in
   };
 
   # Remove all default packages, and only install those in this config
-  environment.defaultPackages = lib.mkForce [ ];
+  environment = {
+    defaultPackages = lib.mkForce [ ];
+    enableAllTerminfo = true;
+  };
 
   system.stateVersion = "25.05";
 }
