@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ pkgs, ... }: {
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
@@ -48,57 +48,4 @@
       require("starship"):setup()
     '';
   };
-
-  # If Zellij is enabled, then set Yazi as the layout and default_layout
-  home.file.".config/zellij/layouts/yazi.kdl".text = lib.mkIf
-    config.programs.zellij.enable
-    ''
-      layout {
-          tab name="btop" hide_floating_panes=true {
-              pane size=1 borderless=true {
-                  plugin location="zellij:tab-bar"
-              }
-              pane command="btop" {
-                  start_suspended false
-              }
-              pane size=1 borderless=true {
-                  plugin location="zellij:status-bar"
-              }
-          }
-          tab name="localhost" focus=true {
-              pane size=1 borderless=true {
-                  plugin location="zellij:tab-bar"
-              }
-              pane name="sidebar" {
-                  command "env"
-                  args "YAZI_CONFIG_HOME=~/.config/yazi" "yazi"
-              }
-              pane size=1 borderless=true {
-                  plugin location="zellij:status-bar"
-              }
-          }
-          new_tab_template {
-              pane size=1 borderless=true {
-                  plugin location="zellij:tab-bar"
-              }
-              pane split_direction="vertical" {
-                  pane command="env" name="sidebar" size="100%" {
-                      args "YAZI_CONFIG_HOME=~/.config/yazi/" "yazi"
-                      start_suspended true
-                  }
-              }
-              pane size=1 borderless=true {
-                  plugin location="zellij:status-bar"
-              }
-              floating_panes {
-                  pane {
-                  }
-              }
-          }
-      }
-    '';
-
-  programs.zellij.settings.default_layout = lib.mkIf
-    config.programs.zellij.enable
-    "yazi";
 }
