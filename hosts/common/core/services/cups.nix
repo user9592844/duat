@@ -1,7 +1,7 @@
 { lib, ... }: {
   systemd.services.cups = {
     # Service shouldn't currently be used, therefore set the default to false
-    enable = lib.mkDefault false;
+    enable = lib.mkForce false;
 
     # If it's needed at a later date, re-enable with these configs
     serviceConfig = {
