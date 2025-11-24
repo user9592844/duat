@@ -13,7 +13,6 @@ let
     "hosts/common/optional/desktop/libreoffice.nix"
     "hosts/common/optional/desktop/protonmail-desktop.nix"
     "hosts/common/optional/desktop/proton-pass.nix"
-    "hosts/common/optional/desktop/protonvpn-gui.nix"
     "hosts/common/optional/services/impermanence.nix"
     "hosts/common/optional/services/tailscale.nix"
   ];
