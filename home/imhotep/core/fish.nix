@@ -8,6 +8,12 @@
       for file in ~/.config/fish/functions/*.fish
         source $file
       end
+
+      if test "$TERM_PROGRAM" != "zed"
+        if not set -q ZELLIJ
+          zellij attach -c; or zellij
+        end
+      end
     '';
     functions = {
       # GCC Aliases
