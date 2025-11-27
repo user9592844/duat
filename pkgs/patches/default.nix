@@ -1,6 +1,6 @@
 final: prev:
 let
-  lib = prev.lib;
+  inherit (prev) lib;
 
   patchDirs = lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./.);
 
