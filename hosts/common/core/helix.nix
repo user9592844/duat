@@ -1,5 +1,5 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.helix ];
+  environment.systemPackages = [ pkgs.evil-helix ];
   environment.variables.EDITOR = "hx";
 }
