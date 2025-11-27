@@ -1,8 +1,4 @@
-{ lib, pkgs, config, ... }:
-let
-  cockpit-podman = pkgs.callPackage (lib.custom.relativeToRoot "pkgs/patches/cockpit-podman") { };
-in
-{
+{ lib, pkgs, config, ... }: {
   # Enable cockpit for local only HTTP access
   services.cockpit = {
     enable = true;
@@ -28,5 +24,5 @@ in
   };
 
   # Add podman-compose for Docker Compose functionality, and add cockpit-podman plugin
-  environment.systemPackages = [ pkgs.podman-compose pkgs.slirp4netns pkgs.fuse-overlayfs cockpit-podman ];
+  environment.systemPackages = [ pkgs.podman-compose pkgs.slirp4netns pkgs.fuse-overlayfs pkgs.cockpit-podman ];
 }

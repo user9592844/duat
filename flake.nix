@@ -10,7 +10,7 @@
     };
     impermanence.url = "github:nix-community/impermanence";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops = {
@@ -54,9 +54,17 @@
       # For each host in ./hosts/hosts create a nixosConfiguration
       # NOTE: Only the currently requested hostname will be built
       nixosConfigurations = forEachHost (host:
+        let
+
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = [ (import ./pkgs/patches) ];
+          };
+        in
         lib.nixosSystem {
+          inherit pkgs;
           specialArgs = {
-            inherit inputs lib nixpkgs nixos-hardware disko sops
+            inherit inputs lib nixos-hardware disko sops
               impermanence duat-secrets;
           };
           modules = [
