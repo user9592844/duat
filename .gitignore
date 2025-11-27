@@ -1,3 +1,4 @@
 drvs.txt
 result
 .direnv
+pkgs/patches/*
