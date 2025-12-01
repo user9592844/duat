@@ -55,7 +55,7 @@ in
   # Remove all default packages, and only install those in this config
   environment = {
     defaultPackages = lib.mkForce [ ];
-    enableAllTerminfo = true;
+    extraTerminfo = [ "alacritty" "ghostty" ];
   };
 
   system.stateVersion = "25.05";

@@ -15,6 +15,8 @@ let
     "hosts/common/optional/desktop/proton-pass.nix"
     "hosts/common/optional/services/impermanence.nix"
     "hosts/common/optional/services/tailscale.nix"
+    "hosts/common/optional/terminal/dig.nix"
+    "hosts/common/optional/terminal/pigz.nix"
   ];
 
   # Grab the path to the user system config
@@ -61,7 +63,7 @@ in
   # Remove all default packages, and only install those in this config
   environment = {
     defaultPackages = lib.mkForce [ ];
-    enableAllTerminfo = true;
+    extraTerminfo = [ "alacritty" "ghostty" ];
   };
 
   system.stateVersion = "24.11";
