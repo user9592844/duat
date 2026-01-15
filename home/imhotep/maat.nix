@@ -4,6 +4,8 @@
   ] ++ map lib.custom.relativeToRoot [
     "home/imhotep/optional/browsers/firefox.nix"
 
+    "home/imhotep/optional/desktop/signal-desktop.nix"
+
     "home/imhotep/optional/dev/podman.nix"
     "home/imhotep/optional/dev/zed-editor.nix"
 
