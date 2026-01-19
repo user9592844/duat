@@ -10,7 +10,6 @@
     "home/imhotep/optional/dev/zed-editor.nix"
 
     "home/imhotep/optional/terminal/ghostty.nix"
-    "home/imhotep/optional/terminal/bottom.nix"
   ];
 
   # These secrets are only desired on maat
