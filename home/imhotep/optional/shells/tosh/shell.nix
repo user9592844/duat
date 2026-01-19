@@ -11,6 +11,7 @@ let
     gnugrep
     gnused
     hashcat
+    hcxtools
     inetutils
     iw
     less
@@ -28,7 +29,7 @@ let
   binPath = pkgs.lib.makeBinPath appWhitelist;
 in
 pkgs.mkShell {
-  buildInputs = with pkgs; [ bubblewrap ] ++ appWhitelist;
+  buildInputs = [ pkgs.bubblewrap ] ++ appWhitelist;
 
   shellHook = ''
     if [ -n "$SANDBOXED" ]; then return; fi

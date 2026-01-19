@@ -18,7 +18,35 @@
       OverrideFirstRunPage = "";
       OverridePostUpdatePage = "";
       DontCheckDefaultBrowser = true;
-      ExtensionSettings = { "*".installation_mode = "blocked"; };
+      BlockAboutConfig = true;
+      ExtensionSettings = {
+        "*".installation_mode = "blocked";
+
+        "uBlock0@raymondhill.net" = {
+          default_area = "menupanel";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          installation_mode = "force_installed";
+          private_browsing = true;
+        };
+        "jid1-MnnxcxisBPnSXQ@jetpack" = {
+          default_area = "menupanel";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
+          installation_mode = "force_installed";
+          private_browsing = true;
+        };
+        "{74145f27-f039-47ce-a470-a662b129930a}" = {
+          default_area = "menupanel";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi";
+          installation_mode = "force_installed";
+          private_browsing = true;
+        };
+        "@testpilot-containers" = {
+          default_area = "menupanel";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi";
+          installation_mode = "force_installed";
+          private_browsing = true;
+        };
+      };
     };
 
     preferences = {
@@ -80,7 +108,7 @@
 
       "network.proxy.failover_direct" = false;
       "network.proxy.allow_bypass" = false;
-      "network.trr.mode" = 3;
+      "network.trr.mode" = 0;
       # "network.trr.uri" = "https://example.dns";
 
       # Section 0800: LOCATION BAR / SEARCH BAR / SUGGESTION / HISTORY / FORMS
