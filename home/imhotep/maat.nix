@@ -10,6 +10,7 @@
     "home/imhotep/optional/dev/zed-editor.nix"
 
     "home/imhotep/optional/terminal/ghostty.nix"
+    "home/imhotep/optional/terminal/terraform.nix"
   ];
 
   # These secrets are only desired on maat
